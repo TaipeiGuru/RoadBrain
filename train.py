@@ -41,3 +41,31 @@ testing_dataset = dataset_tuple[2]
 train_loader = torch.utils.data.DataLoader(training_dataset, batch_size=64, shuffle=True)
 validate_loader = torch.utils.data.DataLoader(validation_dataset, batch_size=32)
 test_loader = torch.utils.data.DataLoader(testing_dataset, batch_size=32)
+
+if arguments.arch == 'vgg':
+    input_size = 25088
+    model = models.vgg16(pretrained=True)
+elif arguments.arch == 'alexnet':
+    input_size = 9216
+    model = models.alexnet(pretrained=True)
+else:
+    print("Model architecture not recognized.")
+    
+print(model)
+
+for parameter in model.parameters():
+    parameter.requires_grad = False
+
+classifier = nn.Sequential(OrderedDict([('fc1', nn.Linear(input_size, arguments.hidden_units)),
+                                        ('relu', nn.ReLU()),
+                                        ('drop', nn.Dropout(p=0.5)),
+                                        ('fc2', nn.Linear(arguments.hidden_units, 102)),
+                                        ('output', nn.LogSoftmax(dim=1))]))
+
+model.classifier = classifier
+criterion = nn.NLLLoss()
+optimizer = optim.Adam(model.classifier.parameters(), lr=arguments.learning_rate)
+    
+model_functions.train_classifier(model, optimizer, criterion, arguments.epochs, train_loader, validate_loader, arguments.gpu)
+model_functions.test_accuracy(model, test_loader, arguments.gpu)
+model_functions.save_checkpoint(model, training_dataset, arguments.arch, arguments.epochs, arguments.learning_rate, arguments.hidden_units, input_size)  
