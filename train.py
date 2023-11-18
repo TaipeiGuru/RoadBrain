@@ -24,10 +24,10 @@ parser.add_argument('--gpu', type = str, default = 'cuda', help = 'GPU or CPU')
 parser.add_argument('--save_dir', type = str, default = 'checkpoint.pth', help = 'Path to checkpoint')
 arguments = parser.parse_args()
 
-data_directory = 'flowers'
-train_directory = 'flowers/train'
-valid_directory = 'Flowers/valid'
-test_directory = 'flowers/test'
+data_directory = 'cars'
+train_directory = 'cars/train'
+valid_directory = 'cars/valid'
+test_directory = 'cars/test'
 
 transforms_tuple = processing_functions.data_transforms()
 training_transforms = transforms_tuple[0]

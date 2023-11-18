@@ -12,7 +12,6 @@ from torch import optim
 import torch.nn.functional as F
 from torchvision import datasets, transforms, models
 
-# Define transforms for the training, validation, and testing sets
 def data_transforms():
     training_transforms = transforms.Compose([transforms.RandomRotation(30),
                                               transforms.RandomResizedCrop(224),
@@ -93,29 +92,21 @@ def imshow(image, ax=None, title=None):
 
 
 def load_json(json_file):
-    
     with open(json_file, 'r') as f:
-        flower_to_name = json.load(f)
-        return flower_to_name
+        car_counter = json.load(f)
+        return car_counter
     
-    
-def display_image(image_dir, flower_to_name, classes, probs):
+def display_image(image_dir, car_counter, classes, probs):
 
     plt.figure(figsize = (6,10))
     plot_1 = plt.subplot(2,1,1)
-
     image = process_image(image_dir)
-    
     key = image_dir.split('/')[-2]
 
-    flower_title = flower_to_name[key]
-
-    imshow(image, plot_1, title=flower_title);
-
-    flower_names = [flower_to_name[i] for i in classes]
-
+    car_count = car_counter[key]
+    imshow(image, plot_1, title=car_count);
+    car_counts = [car_counter[i] for i in classes]
     plt.subplot(2,1,2)
 
-    sb.barplot(x=probs, y=flower_names, color=sb.color_palette()[0]);
-
+    sb.barplot(x=probs, y=car_counts, color=sb.color_palette()[0]);
     plt.show()
