@@ -15,7 +15,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Image Classifier Predictions')
 
-CHECKparser.add_argument('--image_dir', type = str, default = 'flowers/test/15/image_06351.jpg', help = 'Path to image')
+parser.add_argument('--image_dir', type = str, default = 'cars/test/4/frame2585.jpeg', help = 'Path to image')
 parser.add_argument('--checkpoint', type = str, default = 'checkpoint.pth', help = 'Path to checkpoint')
 parser.add_argument('--topk', type = int, default = 3, help = 'Top k classes and probabilities')
 parser.add_argument('--json', type = str, default = 'car_counter.json', help = 'class_to_name json file')

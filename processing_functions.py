@@ -69,14 +69,12 @@ def process_image(image_path):
     
     return np_image
 
-
 def imshow(image, ax=None, title=None):
     if ax is None:
         fig, ax = plt.subplots()
     
     image = image.transpose((1, 2, 0))
     
-    # Undo 
     mean = np.array([0.485, 0.456, 0.406])
     std = np.array([0.229, 0.224, 0.225])
     image = std * image + mean
@@ -97,7 +95,6 @@ def load_json(json_file):
         return car_counter
     
 def display_image(image_dir, car_counter, classes, probs):
-
     plt.figure(figsize = (6,10))
     plot_1 = plt.subplot(2,1,1)
     image = process_image(image_dir)

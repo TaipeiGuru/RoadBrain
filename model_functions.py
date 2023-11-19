@@ -101,7 +101,7 @@ def train_classifier(model, optimizer, criterion, arg_epochs, train_loader, vali
                 running_loss = 0
                 model.train()      
 
-def predict(image_path, model, topk=5, gpu='cuda'):
+def predict(image_path, model, topk=3, gpu='cuda'):
     ''' Predict the class (or classes) of an image using a trained deep learning model.
     '''
     

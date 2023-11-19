@@ -59,7 +59,7 @@ for parameter in model.parameters():
 classifier = nn.Sequential(OrderedDict([('fc1', nn.Linear(input_size, arguments.hidden_units)),
                                         ('relu', nn.ReLU()),
                                         ('drop', nn.Dropout(p=0.5)),
-                                        ('fc2', nn.Linear(arguments.hidden_units, 102)),
+                                        ('fc2', nn.Linear(arguments.hidden_units, 11)),
                                         ('output', nn.LogSoftmax(dim=1))]))
 
 model.classifier = classifier
